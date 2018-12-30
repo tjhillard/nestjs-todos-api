@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { TodoEntity } from './todo.entity';
-import { CrudService } from 'src/shared/crud.service';
+import { CrudService } from '../shared/crud.service';
 
 @Injectable()
 export class TodosService extends CrudService {

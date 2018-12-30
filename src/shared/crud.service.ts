@@ -1,6 +1,6 @@
 import { Repository, BaseEntity } from 'typeorm';
 
-export abstract class CrudService {
+export class CrudService {
   protected repository: Repository<BaseEntity>;
 
   constructor(repository: Repository<any>) {

@@ -2,7 +2,7 @@ import { Controller, Get, Post, Put, Delete, Body, Param, UsePipes } from '@nest
 
 import { TodosService } from './todos.service';
 import { TodoCreateDto, TodoUpdateDto } from './todo.dto';
-import { BaseValidationPipe } from 'src/shared/base-validation.pipe';
+import { BaseValidationPipe } from '../shared/base-validation.pipe';
 
 @Controller('todos')
 export class TodosController {
