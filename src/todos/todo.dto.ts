@@ -21,3 +21,10 @@ export class TodoUpdateDto {
   @IsOptional()
   completed?: boolean;
 }
+
+export class TodoResponseObject {
+  description: string;
+  completed: boolean;
+  'created_at': Date;
+  'updated_at': Date;
+}

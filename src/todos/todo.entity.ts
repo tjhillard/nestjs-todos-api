@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 
 @Entity('todos')
 export class TodoEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column('text')
@@ -16,4 +16,7 @@ export class TodoEntity {
 
   @UpdateDateColumn()
   'updated_at': Date;
+
+  @Column({ default: false })
+  deleted: boolean;
 }

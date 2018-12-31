@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { CrudService } from '../shared/crud.service';
+import { CrudService } from '../shared/services/crud.service';
 import { TodosController } from './todos.controller';
 import { TodosService } from './todos.service';
 import { TodoEntity } from './todo.entity';
@@ -52,7 +52,7 @@ describe('CatsController', () => {
 
   describe('destroyTodo()', () => {
     it('should destroy a todo and return it', async () => {
-      jest.spyOn(todosService, 'destroy').mockImplementation(() => ({ deleted: true }));
+      jest.spyOn(todosService, 'softDelete').mockImplementation(() => ({ deleted: true }));
 
       expect(await todosController.destroyTodo(1)).toEqual({ deleted: true });
     });
