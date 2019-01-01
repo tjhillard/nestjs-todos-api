@@ -1,19 +1,15 @@
+import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
-import { CrudService } from 'src/shared/services/crud.service';
-
-import { UserEntity } from './user.entity';
-import { UserDto, UserResponseObject } from './user.dto';
+import { UserDto, UserResponseObject } from 'src/modules/users/user.dto';
+import { UserEntity } from 'src/modules/users/user.entity';
 
 @Injectable()
-export class UsersService extends CrudService {
+export class AuthService {
   constructor(
     @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
-  ) {
-    super(userRepository);
-  }
+  ) {}
 
   async register(data: UserDto): Promise<UserResponseObject> {
     const { email } = data;
@@ -21,7 +17,7 @@ export class UsersService extends CrudService {
     if (user) {
       throw new HttpException('User with provided email already exists', HttpStatus.BAD_REQUEST);
     }
-    user = await this.create(data);
+    user = await this.userRepository.create(data);
     return user.serialize({ includeToken: true });
   }
 

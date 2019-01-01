@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { CrudService } from 'src/shared/services/crud.service';
+
 import { TodoEntity } from './todo.entity';
-import { CrudService } from '../shared/services/crud.service';
 
 @Injectable()
 export class TodosService extends CrudService {

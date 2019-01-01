@@ -1,5 +1,3 @@
-import { Test } from '@nestjs/testing';
-import { CrudService } from '../shared/services/crud.service';
 import { TodosController } from './todos.controller';
 import { TodosService } from './todos.service';
 import { TodoEntity } from './todo.entity';
@@ -19,7 +17,7 @@ describe('CatsController', () => {
       const result = ['test'];
       jest.spyOn(todosService, 'getAll').mockImplementation(() => result);
 
-      expect(await todosController.getAllTodos()).toBe(result);
+      expect(await todosController.index()).toBe(result);
     });
   });
 
@@ -28,7 +26,7 @@ describe('CatsController', () => {
       const result = { description: 'walk the cat' };
       jest.spyOn(todosService, 'getOne').mockImplementation(() => result);
 
-      expect(await todosController.getTodo(1)).toBe(result);
+      expect(await todosController.show(1)).toBe(result);
     });
   });
 
@@ -37,7 +35,7 @@ describe('CatsController', () => {
       const todo = { description: 'walk the cat' };
       jest.spyOn(todosService, 'create').mockImplementation(() => todo);
 
-      expect(await todosController.createTodo(todo)).toBe(todo);
+      expect(await todosController.create(todo)).toBe(todo);
     });
   });
 
@@ -46,7 +44,7 @@ describe('CatsController', () => {
       const todo = { description: 'walk the cat' };
       jest.spyOn(todosService, 'update').mockImplementation(() => todo);
 
-      expect(await todosController.updateTodo(1, todo)).toBe(todo);
+      expect(await todosController.update(1, todo)).toBe(todo);
     });
   });
 
@@ -54,7 +52,7 @@ describe('CatsController', () => {
     it('should destroy a todo and return it', async () => {
       jest.spyOn(todosService, 'softDelete').mockImplementation(() => ({ deleted: true }));
 
-      expect(await todosController.destroyTodo(1)).toEqual({ deleted: true });
+      expect(await todosController.destroy(1)).toEqual({ deleted: true });
     });
   });
 });

@@ -18,6 +18,9 @@ export class UserEntity {
   @Column('text')
   password: string;
 
+  @Column({ default: 'user' })
+  role: string;
+
   @CreateDateColumn()
   'created_at': Date;
 
@@ -33,8 +36,8 @@ export class UserEntity {
   }
 
   serialize(options: any = { includeToken: false }) {
-    const { id, email, token, created_at, updated_at } = this;
-    const serializedUser: UserResponseObject = { id, email, created_at, updated_at };
+    const { id, email, role, token, created_at, updated_at } = this;
+    const serializedUser: UserResponseObject = { id, email, role, created_at, updated_at };
     if (options.includeToken) { serializedUser.token = token; }
     return serializedUser;
   }
@@ -44,9 +47,9 @@ export class UserEntity {
   }
 
   private get token() {
-    const { id, email } = this;
+    const { id, email, role } = this;
     return jwt.sign(
-      { id, email },
+      { id, email, role },
       process.env.JWT_SECRET,
       { expiresIn: '7d' },
     );

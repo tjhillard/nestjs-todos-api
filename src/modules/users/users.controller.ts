@@ -1,0 +1,21 @@
+import { Controller, Post, Body, UsePipes, Get, UseGuards } from '@nestjs/common';
+
+import { AuthGuard } from 'src/shared/guards/auth.guard';
+import { RolesGuard } from 'src/shared/guards/roles.guard';
+
+import { UsersService } from './users.service';
+import { UserResponseObject } from './user.dto';
+import { UsersPolicy } from './users.policy';
+
+@Controller('users')
+@UseGuards(new AuthGuard(), new RolesGuard(UsersPolicy))
+export class UsersController {
+  constructor(
+    private readonly usersService: UsersService,
+  ) {}
+
+  @Get()
+  async getAllUsers(): Promise<UserResponseObject[]> {
+    return await this.usersService.getAll();
+  }
+}

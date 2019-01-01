@@ -12,7 +12,8 @@ export class UserDto {
 export class UserResponseObject {
   id: number;
   email: string;
+  role: string;
+  token?: string;
   'created_at': Date;
   'updated_at': Date;
-  token?: string;
 }

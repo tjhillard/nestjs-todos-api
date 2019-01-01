@@ -2,8 +2,9 @@ import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 
-import { AppModule } from './app.module';
 import { EntityNotFoundErrorFilter } from './shared/filters/exceptions/entity-not-found.filter';
+
+import { AppModule } from './app.module';
 
 const port = process.env.PORT || 3000;
 
