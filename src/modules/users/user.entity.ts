@@ -1,8 +1,10 @@
 import 'dotenv/config';
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, UpdateDateColumn, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, UpdateDateColumn, BeforeInsert, OneToMany } from 'typeorm';
+
 import { UserResponseObject } from './user.dto';
+import { TodoEntity } from '../todos/todo.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -18,8 +20,8 @@ export class UserEntity {
   @Column('text')
   password: string;
 
-  @Column({ default: 'user' })
-  role: string;
+  @Column({ default: 0 })
+  role: number;
 
   @CreateDateColumn()
   'created_at': Date;
@@ -30,6 +32,14 @@ export class UserEntity {
   @Column({ default: false })
   deleted: boolean;
 
+  @Column({ default: false })
+  banned: boolean;
+
+  // Relationships
+  @OneToMany(type => TodoEntity, todo => todo.user)
+  todos: TodoEntity[];
+
+  // Methods
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);

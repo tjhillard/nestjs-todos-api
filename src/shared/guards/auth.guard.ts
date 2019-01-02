@@ -10,6 +10,10 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     if (!request.headers.authorization) { this.throwUnauthorized(); }
     request.user = await this.validateToken(request.headers.authorization);
+
+    if (request.user.deleted) { return false; }
+    if (request.user.banned) { return false; }
+
     return true;
   }
 

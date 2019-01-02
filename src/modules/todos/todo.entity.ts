@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { UserEntity } from '../users/user.entity';
+import { TodoResponseObject } from './todo.dto';
 
 @Entity('todos')
 export class TodoEntity {
@@ -19,4 +21,15 @@ export class TodoEntity {
 
   @Column({ default: false })
   deleted: boolean;
+
+  // Relationships
+  @ManyToOne(type => UserEntity, user => user.todos)
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
+
+  serialize() {
+    const { id, description, completed, created_at, updated_at } = this;
+    const serializedTodo: TodoResponseObject =  { id, description, completed, created_at, updated_at };
+    return serializedTodo;
+  }
 }

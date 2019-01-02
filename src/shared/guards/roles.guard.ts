@@ -1,13 +1,15 @@
-import { Injectable, CanActivate, ExecutionContext, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   private policy: any;
-  constructor(policy: any) {
+  constructor(
+    policy: any,
+  ) {
     this.policy = policy;
   }
 
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = context.switchToHttp();
     const request = ctx.getRequest();
 

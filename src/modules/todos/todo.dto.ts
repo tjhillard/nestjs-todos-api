@@ -1,6 +1,8 @@
 // tslint:disable:max-classes-per-file
 import { IsString, IsBoolean, IsOptional, IsNotEmpty } from 'class-validator';
 
+import { UserResponseObject } from '../users/user.dto';
+
 export class TodoCreateDto {
   @IsString()
   @IsNotEmpty()
@@ -23,6 +25,7 @@ export class TodoUpdateDto {
 }
 
 export class TodoResponseObject {
+  id: number;
   description: string;
   completed: boolean;
   'created_at': Date;

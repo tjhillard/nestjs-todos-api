@@ -4,12 +4,13 @@ import { Repository } from 'typeorm';
 
 import { UserDto, UserResponseObject } from 'src/modules/users/user.dto';
 import { UserEntity } from 'src/modules/users/user.entity';
+import { CrudService } from 'src/shared/services/crud.service';
 
 @Injectable()
-export class AuthService {
+export class AuthService extends CrudService {
   constructor(
     @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
-  ) {}
+  ) { super(userRepository); }
 
   async register(data: UserDto): Promise<UserResponseObject> {
     const { email } = data;
@@ -17,7 +18,7 @@ export class AuthService {
     if (user) {
       throw new HttpException('User with provided email already exists', HttpStatus.BAD_REQUEST);
     }
-    user = await this.userRepository.create(data);
+    user = await this.create(data);
     return user.serialize({ includeToken: true });
   }
 

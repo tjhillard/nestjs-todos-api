@@ -6,19 +6,18 @@ import { UserResponseObject, UserDto } from 'src/modules/users/user.dto';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
+@UsePipes(new BaseValidationPipe())
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
   ) {}
 
   @Post('register')
-  @UsePipes(new BaseValidationPipe())
   async register(@Body() data: UserDto): Promise<UserResponseObject> {
     return await this.authService.register(data);
   }
 
   @Post('login')
-  @UsePipes(new BaseValidationPipe())
   async login(@Body() data: UserDto): Promise<UserResponseObject> {
     return await this.authService.login(data);
   }

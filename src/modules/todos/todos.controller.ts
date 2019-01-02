@@ -7,39 +7,41 @@ import { TodosService } from './todos.service';
 import { TodoCreateDto, TodoUpdateDto, TodoResponseObject } from './todo.dto';
 import { RolesGuard } from 'src/shared/guards/roles.guard';
 import { TodosPolicy } from './todos.policy';
+import { User } from 'src/shared/decorators/user.decorator';
+import { UserEntity } from '../users/user.entity';
 
 @Controller('todos')
-@UseGuards(new AuthGuard(), new RolesGuard(TodosPolicy))
+@UseGuards(new AuthGuard(), new RolesGuard(new TodosPolicy()))
 export class TodosController {
   constructor(
     private readonly todosService: TodosService,
   ) { }
 
   @Get()
-  index(): Promise<TodoResponseObject[]> {
-    return this.todosService.getAll();
+  index(@User() user: UserEntity): Promise<TodoResponseObject[]> {
+    return this.todosService.getAll(user);
   }
 
   @Get(':id')
-  show(@Param('id') id: number): Promise<TodoResponseObject> {
-    return this.todosService.getOne(id);
+  show(@Param('id') id: number, @User() user: UserEntity): Promise<TodoResponseObject> {
+    return this.todosService.getOne(id, user);
   }
 
   @Post()
   @UsePipes(new BaseValidationPipe())
-  create(@Body() data: TodoCreateDto): Promise<TodoResponseObject> {
-    return this.todosService.create(data);
+  create(@User('id') userId: number, @Body() data: TodoCreateDto): Promise<TodoResponseObject> {
+    return this.todosService.create(data, userId);
   }
 
   @Put(':id')
   @UsePipes(new BaseValidationPipe())
-  update(@Param('id') id: number, @Body() data: TodoUpdateDto): Promise<TodoResponseObject> {
-    return this.todosService.update(id, data);
+  update(@Param('id') id: number, @Body() data: TodoUpdateDto, @User() user: UserEntity): Promise<TodoResponseObject> {
+    return this.todosService.update(id, data, user);
   }
 
   @Delete(':id')
   @HttpCode(204)
-  destroy(@Param('id') id: number): Promise<void> {
-    return this.todosService.softDelete(id);
+  destroy(@Param('id') id: number, @User() user: UserEntity): Promise<void> {
+    return this.todosService.softDelete(id, user);
   }
 }
