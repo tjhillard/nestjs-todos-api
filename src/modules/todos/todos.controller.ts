@@ -9,8 +9,10 @@ import { RolesGuard } from 'src/shared/guards/roles.guard';
 import { TodosPolicy } from './todos.policy';
 import { User } from 'src/shared/decorators/user.decorator';
 import { UserEntity } from '../users/user.entity';
+import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('todos')
+@ApiUseTags('todos') @ApiBearerAuth()
 @UseGuards(new AuthGuard(), new RolesGuard(new TodosPolicy()))
 export class TodosController {
   constructor(

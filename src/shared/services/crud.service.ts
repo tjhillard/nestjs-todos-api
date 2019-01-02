@@ -26,7 +26,7 @@ export class CrudService {
     return collection.map(entity => this.getSerializedEntity(entity));
   }
 
-  async create(data: any, userId: number): Promise<any> {
+  async create(data: any): Promise<any> {
     const item = await this.repository.create({ ...data });
     await this.repository.save(item);
     return item;

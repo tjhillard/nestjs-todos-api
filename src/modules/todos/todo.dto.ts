@@ -2,25 +2,25 @@
 import { IsString, IsBoolean, IsOptional, IsNotEmpty } from 'class-validator';
 
 import { UserResponseObject } from '../users/user.dto';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class TodoCreateDto {
   @IsString()
   @IsNotEmpty()
+  @ApiModelProperty()
   description: string;
-
-  @IsBoolean()
-  @IsOptional()
-  completed?: boolean;
 }
 
 export class TodoUpdateDto {
   @IsString()
   @IsNotEmpty()
   @IsOptional()
-  description: string;
+  @ApiModelProperty({ required: false })
+  description?: string;
 
   @IsBoolean()
   @IsOptional()
+  @ApiModelProperty({ required: false })
   completed?: boolean;
 }
 

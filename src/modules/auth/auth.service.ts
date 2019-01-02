@@ -2,9 +2,11 @@ import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { UserDto, UserResponseObject } from 'src/modules/users/user.dto';
+import { UserResponseObject } from 'src/modules/users/user.dto';
 import { UserEntity } from 'src/modules/users/user.entity';
 import { CrudService } from 'src/shared/services/crud.service';
+
+import { AuthDto } from './auth.dto';
 
 @Injectable()
 export class AuthService extends CrudService {
@@ -12,7 +14,7 @@ export class AuthService extends CrudService {
     @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
   ) { super(userRepository); }
 
-  async register(data: UserDto): Promise<UserResponseObject> {
+  async register(data: AuthDto): Promise<UserResponseObject> {
     const { email } = data;
     let user: UserEntity = await this.userRepository.findOne({ where: { email } });
     if (user) {
@@ -22,7 +24,7 @@ export class AuthService extends CrudService {
     return user.serialize({ includeToken: true });
   }
 
-  async login(data: UserDto): Promise<UserResponseObject> {
+  async login(data: AuthDto): Promise<UserResponseObject> {
     const { email, password } = data;
     const user: UserEntity = await this.userRepository.findOne({ where: { email } });
     if (!user || !(await user.comparePassword(password))) {

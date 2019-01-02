@@ -6,8 +6,10 @@ import { RolesGuard } from 'src/shared/guards/roles.guard';
 import { UsersService } from './users.service';
 import { UserResponseObject } from './user.dto';
 import { UsersPolicy } from './users.policy';
+import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
+@ApiUseTags('users') @ApiBearerAuth()
 @UseGuards(new AuthGuard(), new RolesGuard(new UsersPolicy()))
 export class UsersController {
   constructor(
