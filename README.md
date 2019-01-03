@@ -55,4 +55,4 @@ $ npm run test:cov
 
 ## Feedback
 
-Have ideas to improve this project? Create an issue and let me know!
+Have ideas to improve this project? [Create an issue](https://github.com/tjhillard/nestjs-todos-api/issues/new) and let me know!
