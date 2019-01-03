@@ -41,6 +41,12 @@ $ npm run start:hmr
 $ npm run start:prod
 ```
 
+## Docs / Playground
+
+```
+http://localhost:3000/api/v1/docs/
+```
+
 ## Test
 
 ```bash
@@ -56,4 +62,4 @@ $ npm run test:cov
 
 ## Feedback
 
-Have ideas to improve this project? Create an issue and let me know!
+Have ideas to improve this project? [Create an issue](https://github.com/tjhillard/nestjs-todos-api/issues/new) and let me know!
