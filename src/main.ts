@@ -3,6 +3,9 @@ import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
 import { SwaggerModule } from '@nestjs/swagger';
 
+import * as helmet from 'helmet';
+import * as rateLimit from 'express-rate-limit';
+
 import { swaggerOptions } from '../config/swagger.config';
 import { EntityNotFoundErrorFilter } from './shared/filters/exceptions/entity-not-found.filter';
 
@@ -17,6 +20,9 @@ async function bootstrap() {
   // App config
   app.setGlobalPrefix('/api/v1');
   app.useGlobalFilters(new EntityNotFoundErrorFilter());
+
+  app.use(helmet());
+  app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 
   // Swagger/OpenAPI config
   const document = SwaggerModule.createDocument(app, swaggerOptions);
