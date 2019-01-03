@@ -14,7 +14,6 @@ This project is a Nest.js boilerplate/example application with the following fea
 * API Documentation with [Swagger](https://swagger.io/)
 * Webpack Hot Module Reload Configuration
 * Several custom utility Guards, Pipes, Decorators & Filters
-* 100% Unit & E2E Test Coverage (Jest & Supertest / Istanbul Coverage Tracking)
 * Security middleware with [Helmet](https://github.com/helmetjs/helmet)
 * Error/crash reporting with [Sentry](https://sentry.io/welcome/)
 
