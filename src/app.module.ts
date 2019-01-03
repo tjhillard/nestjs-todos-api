@@ -1,6 +1,7 @@
 import 'dotenv/config';
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as redisStore from 'cache-manager-redis-store';
 
 import { UserEntity } from 'src/modules/users/user.entity';
 import { TodosModule } from './modules/todos/todos.module';
@@ -20,6 +21,11 @@ import { TodoEntity } from './modules/todos/todo.entity';
         UserEntity,
         TodoEntity,
       ],
+    }),
+    CacheModule.register({
+      store: redisStore,
+      host: 'localhost',
+      port: 6379,
     }),
     TodosModule,
     UsersModule,
