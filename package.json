@@ -7,9 +7,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
+    "webpack": "webpack --config webpack.config.js",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:webpack": "node dist/server",
-    "webpack": "webpack --config webpack.config.js",
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
     "prestart:prod": "rimraf dist && tsc",
