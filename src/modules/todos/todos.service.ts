@@ -5,9 +5,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TodoEntity } from './todo.entity';
 import { UserEntity } from '../users/user.entity';
 import { TodosPolicy } from './todos.policy';
+import { BaseService } from 'src/shared/services/base.service';
 
 @Injectable()
-export class TodosService {
+export class TodosService extends BaseService {
   constructor(
     @InjectRepository(TodoEntity)
     private readonly todoRepository: Repository<TodoEntity>,
@@ -15,6 +16,7 @@ export class TodosService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
   ) {
+    super();
     this.policy = new TodosPolicy();
   }
 
@@ -46,9 +48,5 @@ export class TodosService {
     await this.todoRepository.findOneOrFail({ where: { id, deleted: false, user } });
     await this.todoRepository.update(id, { deleted: true });
     return;
-  }
-
-  private getSerializedEntity(entity: any): any {
-    return entity.serialize ? entity.serialize() : entity;
   }
 }

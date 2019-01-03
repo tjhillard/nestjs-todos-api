@@ -16,7 +16,7 @@ import { TodoEntity } from './modules/todos/todo.entity';
       type: 'postgres',
       url: process.env.DATABASE_URL,
       logging: true,
-      synchronize: process.env.NODE_ENV === 'production' ? false : true,
+      synchronize: process.env.NODE_ENV !== 'production',
       entities: [
         UserEntity,
         TodoEntity,

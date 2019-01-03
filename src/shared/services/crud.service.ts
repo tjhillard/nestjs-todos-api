@@ -1,19 +1,17 @@
-import { HttpException, HttpStatus, UseFilters } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from '../decorators/user.decorator';
-import { UserEntity } from 'src/modules/users/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { BaseService } from 'src/shared/services/base.service';
 
 /**
  * Offers base CRUD functionality for any service class inherits it
  * @example class CatsService extends CrudService {}
  */
-export class CrudService {
+export class CrudService extends BaseService {
   protected repository: any;
 
   constructor(
     repository: Repository<any>,
   ) {
+    super();
     this.repository = repository;
   }
 
@@ -52,9 +50,5 @@ export class CrudService {
     await this.repository.findOneOrFail({ where: { id } });
     await this.repository.delete(id);
     return;
-  }
-
-  private getSerializedEntity(entity: any) {
-    return entity.serialize ? entity.serialize() : entity;
   }
 }
