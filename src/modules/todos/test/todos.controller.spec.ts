@@ -1,8 +1,8 @@
-import { TodosController } from './todos.controller';
-import { TodosService } from './todos.service';
-import { TodoEntity } from './todo.entity';
+import { TodosController } from '../todos.controller';
+import { TodosService } from '../todos.service';
+import { TodoEntity } from '../todo.entity';
 import { Repository } from 'typeorm';
-import { UserEntity } from '../users/user.entity';
+import { UserEntity } from '../../users/user.entity';
 
 describe('CatsController', () => {
   let todosController: TodosController;

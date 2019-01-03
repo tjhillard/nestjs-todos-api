@@ -17,7 +17,7 @@ export class UsersController {
   ) {}
 
   @Get()
-  async getAllUsers(): Promise<UserResponseObject[]> {
+  async index(): Promise<UserResponseObject[]> {
     return await this.usersService.getAll();
   }
 }

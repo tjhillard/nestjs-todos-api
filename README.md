@@ -8,9 +8,9 @@ This project is a Nest.js boilerplate/example application with the following fea
 
 * [JWT](https://jwt.io/) Authentication & Authorization
 * Database integration with [TypeORM](https://github.com/typeorm/typeorm) (PostgreSQL, MySQL, NoSQL, & more)
-* Type-safe code base written in [TypeScript](https://www.typescriptlang.org/)
-* Basic policy based authorization, loosely inspired by [Pundit](https://github.com/varvet/pundit)
-* Entity validation with TypeScript [class-validator](https://github.com/typestack/class-validator) package 
+* Type-safe codebase written in [TypeScript](https://www.typescriptlang.org/)
+* Basic policy-based authorization, loosely inspired by [Pundit](https://github.com/varvet/pundit)
+* Entity validation with TypeScript [class-validator](https://github.com/typestack/class-validator) package
 * API Documentation with [Swagger](https://swagger.io/)
 * Webpack Hot Module Reload Configuration
 * Several custom utility Guards, Pipes, Decorators & Filters
@@ -34,7 +34,7 @@ $ npm run start:dev
 
 # incremental rebuild (webpack)
 $ npm run webpack
-$ npm run start:webpack
+$ npm run start:hmr
 
 # production mode
 $ npm run start:prod

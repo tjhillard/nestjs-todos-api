@@ -2,10 +2,10 @@ import 'dotenv/config';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { UserEntity } from 'src/modules/users/user.entity';
 import { TodosModule } from './modules/todos/todos.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { UserEntity } from 'src/modules/users/user.entity';
 import { TodoEntity } from './modules/todos/todo.entity';
 
 @Module({
@@ -15,7 +15,7 @@ import { TodoEntity } from './modules/todos/todo.entity';
       type: 'postgres',
       url: process.env.DATABASE_URL,
       logging: true,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV === 'production' ? false : true,
       entities: [
         UserEntity,
         TodoEntity,
