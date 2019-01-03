@@ -9,7 +9,6 @@ import { AuthDto } from './auth.dto';
 
 @Controller('auth')
 @ApiUseTags('auth') @ApiBearerAuth()
-@UsePipes(new BaseValidationPipe())
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
