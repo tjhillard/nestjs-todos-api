@@ -10,7 +10,7 @@ export class TodosPolicy extends BasePolicy {
     }
   }
 
-  all(user?: UserResponseObject, response?: any) {
+  all(user?: UserResponseObject, response?: any): boolean {
     return true;
   }
 }

@@ -48,7 +48,7 @@ export class TodosService {
     return;
   }
 
-  private getSerializedEntity(entity: any) {
+  private getSerializedEntity(entity: any): any {
     return entity.serialize ? entity.serialize() : entity;
   }
 }
