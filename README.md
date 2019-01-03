@@ -40,6 +40,12 @@ $ npm run start:hmr
 $ npm run start:prod
 ```
 
+## Docs / Playground
+
+```
+http://localhost:3000/api/v1/docs/
+```
+
 ## Test
 
 ```bash
