@@ -11,8 +11,7 @@ export class AuthGuard implements CanActivate {
     if (!request.headers.authorization) { this.throwUnauthorized(); }
     request.user = await this.validateToken(request.headers.authorization);
 
-    if (request.user.deleted) { return false; }
-    if (request.user.banned) { return false; }
+    if (request.user.disabled) { return false; }
 
     return true;
   }
@@ -26,7 +25,7 @@ export class AuthGuard implements CanActivate {
     try {
       return await verify(token, process.env.JWT_SECRET);
     } catch (err) {
-      const message = `JWT error: ${err.message || err.name}`;
+      const message = `${err.message || err.name}`;
       this.throwUnauthorized(message);
     }
 

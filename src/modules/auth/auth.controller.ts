@@ -1,4 +1,4 @@
-import { Controller, Post, UsePipes, Body } from '@nestjs/common';
+import { Controller, Post, UsePipes, Body, Get, Req } from '@nestjs/common';
 
 import { BaseValidationPipe } from 'src/shared/pipes/base-validation.pipe';
 import { UserResponseObject } from 'src/modules/users/user.dto';
@@ -22,5 +22,10 @@ export class AuthController {
   @Post('login')
   async login(@Body() data: AuthDto): Promise<UserResponseObject> {
     return await this.authService.login(data);
+  }
+
+  @Get('access_token')
+  async accessToken(@Req() req): Promise<any> {
+    return await this.authService.getFreshAccessToken(req.headers.authorization);
   }
 }

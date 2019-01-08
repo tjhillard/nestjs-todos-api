@@ -5,6 +5,7 @@ import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, UpdateDateCol
 
 import { UserResponseObject } from './user.dto';
 import { TodoEntity } from '../todos/todo.entity';
+import { JwtService } from 'src/shared/services/jwt.service';
 
 @Entity('users')
 export class UserEntity {
@@ -33,7 +34,7 @@ export class UserEntity {
   deleted: boolean;
 
   @Column({ default: false })
-  banned: boolean;
+  disabled: boolean;
 
   // Relationships
   @OneToMany(type => TodoEntity, todo => todo.user)
@@ -57,11 +58,7 @@ export class UserEntity {
   }
 
   private get token() {
-    const { id, email, role } = this;
-    return jwt.sign(
-      { id, email, role },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d' },
-    );
+    const { id, disabled, role } = this;
+    return JwtService.sign({ id, disabled, role });
   }
 }
