@@ -4,13 +4,13 @@ import { UserEntity } from '../users/user.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class TodosPolicy extends BasePolicy {
-  authorizeOwnership(user: UserEntity, resource: any): void {
-    if (user.id === resource.uesr_id) {
+  authorize(user: UserEntity, resource: any): void {
+    if (user.id !== resource.uesr_id) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
   }
 
-  all(user?: UserResponseObject, response?: any): boolean {
+  all(user?: UserResponseObject): boolean {
     return true;
   }
 }
