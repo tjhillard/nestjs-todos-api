@@ -16,7 +16,8 @@ import { JwtService } from 'src/shared/services/jwt.service';
 @Injectable()
 export class AuthService extends CrudService {
   constructor(
-    @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>,
   ) { super(userRepository); }
 
   async register(data: AuthDto): Promise<UserResponseObject> {
@@ -42,14 +43,14 @@ export class AuthService extends CrudService {
     const jwt = token.split(' ')[1];
     try {
       const payload: any = await verify(jwt, process.env.JWT_SECRET, { ignoreExpiration: true });
-      if (payload) {
-        const user: UserEntity = await this.userRepository.findOne(payload.id);
-        const { id, disabled, role } = user;
-        if (disabled) { throw new Error(); }
-        return {
-          token: JwtService.sign({ id, disabled, role }),
-        };
-      }
+      const user: UserEntity = await this.userRepository.findOne(payload.id);
+        // TODO: Ensure that user.jwt_hash !== hashed version of given jwt (req.headers.auth)
+      const { id, disabled, role } = user;
+      if (disabled) { throw new Error(); }
+        // TODO: Save jwt_hash in db that is hashed version of source jwt (req.headers.auth)
+      return {
+        token: JwtService.sign({ id, disabled, role }),
+      };
     } catch (err) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }

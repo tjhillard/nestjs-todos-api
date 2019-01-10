@@ -11,6 +11,7 @@ import { TodoEntity } from './modules/todos/todo.entity';
 
 @Module({
   imports: [
+    // PostgreSQL DB
     TypeOrmModule.forRoot({
       keepConnectionAlive: true,
       type: 'postgres',
@@ -22,10 +23,12 @@ import { TodoEntity } from './modules/todos/todo.entity';
         TodoEntity,
       ],
     }),
+    // Redis Cache
     CacheModule.register({
       store: redisStore,
       host: 'localhost',
       port: 6379,
+      ttl: 5,
     }),
     TodosModule,
     UsersModule,

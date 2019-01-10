@@ -5,4 +5,8 @@ export class RolesService {
     if (role === 2) { return 'admin'; }
     if (role === 4) { return 'internal'; }
   }
+
+  static isInternalRole(role: number) {
+    return role > 0;
+  }
 }
